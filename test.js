@@ -10,4 +10,5 @@ test('jsonschema', function (t) {
   var test = fs.readFileSync('test.proto').toString()
   t.deepEquals(protobuf.parse(result), protobuf.parse(test))
   t.end()
+
 })

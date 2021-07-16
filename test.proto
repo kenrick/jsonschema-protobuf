@@ -1,21 +1,22 @@
-syntax = "proto2";
+syntax = "proto3";
 
-message children {
-    required string name = 1;
-    required int32 age = 2;
+message child {
+  required string name = 1;
+  required int32 age = 2;
+}
+
+message location {
+  optional string city = 1;
+  optional string state = 2;
 }
 
 message person {
-  message location {
-    optional string city = 1;
-    optional string state = 2;
-  }
-
   required string name = 1;
   required int32 age = 2;
   required int32 income = 3;
   optional string universe = 4;
   optional bool living = 5;
   repeated string alterEgos = 6;
-  repeated children children = 7;
+  repeated child children = 7;
+  optional message location = 8;
 }

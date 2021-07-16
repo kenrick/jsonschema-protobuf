@@ -11,7 +11,7 @@ var mappings = {
 module.exports = function (schema) {
   if (typeof schema === 'string') schema = JSON.parse(schema)
   var result = {
-    syntax: 2,
+    syntax: 3,
     package: null,
     enums: [],
     messages: []
@@ -39,14 +39,9 @@ function Message(schema, addGlobalMessage) {
   var tag = 1
   for (var key in schema.properties) {
     var field = schema.properties[key]
-    if (field.type === 'object') {
-      field.name = key
-      message.messages.push(Message(field, addGlobalMessage))
-    } else {
-      field.name = key
-      message.fields.push(Field(field, tag, key, addGlobalMessage))
-      tag += 1
-    }
+    field.name = key
+    message.fields.push(Field(field, tag, key, addGlobalMessage))
+    tag += 1
   }
 
   for (var i in schema.required) {
@@ -70,8 +65,14 @@ function Field(field, tag, key, addGlobalMessage) {
   }
 
   if (type === "object") {
-    addGlobalMessage({ ...field.items, name: field.name || key })
-    type = key;
+
+    let name = field.items.name || key
+    addGlobalMessage({ ...field.items, name })
+    type = name;
+  }
+
+  if (field.type === "object") {
+    addGlobalMessage({ ...field, name: field.name || key })
   }
 
   return {
