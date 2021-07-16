@@ -77,6 +77,7 @@ function Field(field, tag, key, addGlobalMessage) {
 
   if (field.type === "object") {
     addGlobalMessage({ ...field, name: field.name || key })
+    type = field.name || key
   }
 
   return {

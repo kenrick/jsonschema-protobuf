@@ -19,5 +19,5 @@ message person {
   repeated string alterEgos = 6;
   repeated relative children = 7;
   repeated relative parents = 8;
-  optional message location = 9;
+  optional location location = 9;
 }
