@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/karissa/jsonschema-protobuf",
   "dependencies": {
+    "lodash.uniqby": "^4.7.0",
     "protocol-buffers-schema": "^2.0.3",
     "tape": "^4.2.0"
   }

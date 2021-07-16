@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-message child {
+message relative {
   required string name = 1;
   required int32 age = 2;
 }
@@ -17,6 +17,7 @@ message person {
   optional string universe = 4;
   optional bool living = 5;
   repeated string alterEgos = 6;
-  repeated child children = 7;
-  optional message location = 8;
+  repeated relative children = 7;
+  repeated relative parents = 8;
+  optional message location = 9;
 }

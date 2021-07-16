@@ -34,7 +34,26 @@
     "children": {
       "type": "array",
       "items": {
-        "name": "child",
+        "name": "relative",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ]
+      }
+    },
+    "parents": {
+      "type": "array",
+      "items": {
+        "name": "relative",
         "type": "object",
         "properties": {
           "name": {

@@ -1,4 +1,5 @@
 var protobuf = require('protocol-buffers-schema')
+var uniqBy = require('lodash.uniqby');
 var mappings = {
   'array': 'repeated',
   'object': 'message',
@@ -24,6 +25,9 @@ module.exports = function (schema) {
   if (schema.type === 'object') {
     result.messages.push(Message(schema, addGlobalMessage))
   }
+
+  result.messages = uniqBy(result.messages, "name")
+
 
   return protobuf.stringify(result)
 }
