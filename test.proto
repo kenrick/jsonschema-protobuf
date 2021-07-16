@@ -1,5 +1,10 @@
 syntax = "proto2";
 
+message children {
+    required string name = 1;
+    required int32 age = 2;
+}
+
 message person {
   message location {
     optional string city = 1;
@@ -10,6 +15,7 @@ message person {
   required int32 age = 2;
   required int32 income = 3;
   optional string universe = 4;
-  optional boolean living = 5;
+  optional bool living = 5;
   repeated string alterEgos = 6;
+  repeated children children = 7;
 }

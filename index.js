@@ -17,13 +17,18 @@ module.exports = function (schema) {
     messages: []
   }
 
-  if (schema.type === 'object') {
-    result.messages.push(Message(schema))
+  const addGlobalMessage = (schema) => {
+    result.messages.push(Message(schema, addGlobalMessage))
   }
+
+  if (schema.type === 'object') {
+    result.messages.push(Message(schema, addGlobalMessage))
+  }
+
   return protobuf.stringify(result)
 }
 
-function Message (schema) {
+function Message(schema, addGlobalMessage) {
   var message = {
     name: schema.name,
     enums: [],
@@ -36,10 +41,10 @@ function Message (schema) {
     var field = schema.properties[key]
     if (field.type === 'object') {
       field.name = key
-      message.messages.push(Message(field))
+      message.messages.push(Message(field, addGlobalMessage))
     } else {
       field.name = key
-      message.fields.push(Field(field, tag))
+      message.fields.push(Field(field, tag, key, addGlobalMessage))
       tag += 1
     }
   }
@@ -55,13 +60,18 @@ function Message (schema) {
   return message
 }
 
-function Field (field, tag) {
+function Field(field, tag, key, addGlobalMessage) {
   var type = mappings[field.type] || field.type
   var repeated = false
 
   if (field.type === 'array') {
     repeated = true
     type = field.items.type
+  }
+
+  if (type === "object") {
+    addGlobalMessage({ ...field.items, name: field.name || key })
+    type = key;
   }
 
   return {
