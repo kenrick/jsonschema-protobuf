@@ -3,8 +3,8 @@ var uniqBy = require('lodash.uniqby');
 var mappings = {
   'array': 'repeated',
   'object': 'message',
-  'integer': 'int32',
-  'number': 'int32',
+  'integer': 'double',
+  'number': 'double',
   'string': 'string',
   'boolean': 'bool'
 }
